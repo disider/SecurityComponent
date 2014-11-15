@@ -1,5 +1,5 @@
 {
-  "name": "diside/SecurityComponent",
+  "name": "diside/security-component",
   "require": {
     "php": ">=5.3.0"
   }
