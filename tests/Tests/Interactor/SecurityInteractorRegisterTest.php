@@ -2,44 +2,35 @@
 
 namespace Diside\SecurityComponent\Tests\Interactor;
 
-use Diside\SecurityComponent\Gateway\GatewayRegister;
-use Diside\SecurityComponent\Gateway\InMemory\InMemoryCompanyGateway;
-use Diside\SecurityComponent\Gateway\InMemory\InMemoryLogGateway;
-use Diside\SecurityComponent\Gateway\InMemory\InMemoryUserGateway;
-use Diside\SecurityComponent\Interactor\AbstractInteractor;
-use Diside\SecurityComponent\Interactor\InteractorFactory;
 use Diside\SecurityComponent\Interactor\InteractorRegister;
-use Diside\SecurityComponent\Interactor\Presenter;
-use Diside\SecurityComponent\Interactor\Request;
 use Diside\SecurityComponent\Interactor\SecurityInteractorRegister;
-use Diside\SecurityComponent\Logger\Logger;
 
-class InteractorFactoryTest extends \PHPUnit_Framework_TestCase
+class SecurityInteractorRegisterTest extends \PHPUnit_Framework_TestCase
 {
-    /** @var InteractorFactory */
-    private $interactorFactory;
+    /** @var InteractorRegister */
+    private $interactorRegister;
 
     /**
      * @before
      */
     public function setUp()
     {
-        $gatewayRegister = new GatewayRegister();
-
-        $logGateway = new InMemoryLogGateway();
-        $logger = new Logger($logGateway);
-
-        $this->interactorFactory = new InteractorFactory($gatewayRegister, $logger);
+        $this->interactorRegister = new SecurityInteractorRegister();
     }
 
     /**
      * @test
      */
-    public function buildInteractors()
+    public function countClasses()
     {
-        $interactorRegister = new SecurityInteractorRegister();
-        $this->interactorFactory->addRegister($interactorRegister);
+        $this->assertThat(count($this->interactorRegister->getAll()), $this->equalTo(13));
+    }
 
+    /**
+     * @test
+     */
+    public function testRegisteredInteractors()
+    {
         $this->assertInteractor(SecurityInteractorRegister::FIND_COMPANIES, '\Diside\SecurityComponent\Interactor\Interactor\FindCompaniesInteractor');
         $this->assertInteractor(SecurityInteractorRegister::GET_COMPANY, '\Diside\SecurityComponent\Interactor\Interactor\GetCompanyInteractor');
         $this->assertInteractor(SecurityInteractorRegister::SAVE_COMPANY, '\Diside\SecurityComponent\Interactor\Interactor\SaveCompanyInteractor');
@@ -57,45 +48,17 @@ class InteractorFactoryTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     */
-    public function testAddRegistry()
-    {
-        $register = new DummyRegister();
-
-        $this->interactorFactory->addRegister($register);
-        $this->assertInstanceOf('Diside\SecurityComponent\Tests\Interactor\DummyInteractor', $this->interactorFactory->get('dummy'));
-    }
-
-    /**
-     * @test
-     * @expectedException \Diside\SecurityComponent\Interactor\UndefinedInteractorException
+     * @expectedException \Diside\SecurityComponent\Interactor\UndefinedInteractorClassException
      */
     public function whenRetrievingUndefinedInteractor_thenThrow()
     {
-        $this->interactorFactory->get('unknown');
+        $this->interactorRegister->get('unknown');
 
     }
-
 
     private function assertInteractor($type, $class)
     {
-        $interactor = $this->interactorFactory->get($type);
-        $this->assertInstanceOf($class, $interactor);
-        $this->assertInstanceOf('Diside\SecurityComponent\Interactor\Interactor', $interactor);
-    }
-}
-
-class DummyRegister extends InteractorRegister
-{
-    public function __construct()
-    {
-        $this->register('dummy', 'Diside\SecurityComponent\Tests\Interactor\DummyInteractor');
-    }
-}
-
-class DummyInteractor extends AbstractInteractor
-{
-    function process(Request $request, Presenter $presenter)
-    {
+        $interactorClass = $this->interactorRegister->get($type);
+        $this->assertThat($interactorClass, $this->equalTo($class));
     }
 }

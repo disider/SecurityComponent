@@ -1,9 +1,9 @@
 <?php
 
-namespace SecurityComponent\Tests\Model;
+namespace Diside\SecurityComponent\Tests\Model;
 
-use SecurityComponent\Model\Company;
-use SecurityComponent\Model\User;
+use Diside\SecurityComponent\Model\Company;
+use Diside\SecurityComponent\Model\User;
 
 class UserTest extends \PHPUnit_Framework_TestCase
 {

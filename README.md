@@ -1,2 +1,2 @@
-SecurityComponent
+Diside\SecurityComponent
 =================

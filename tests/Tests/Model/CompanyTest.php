@@ -1,8 +1,8 @@
 <?php
 
-namespace SecurityComponent\Tests\Model;
+namespace Diside\SecurityComponent\Tests\Model;
 
-use SecurityComponent\Model\Company;
+use Diside\SecurityComponent\Model\Company;
 
 class CompanyTest extends \PHPUnit_Framework_TestCase
 {
