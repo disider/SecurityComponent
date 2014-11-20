@@ -35,7 +35,6 @@ class RegisterUserInteractorTest extends BaseUserInteractorTest
         $user = $this->presenter->getUser();
         $this->assertNotNull($user->getRegistrationToken());
         $this->assertThat($user->getSalt(), $this->equalTo('salt'));
-        $this->assertTrue($user->isFreeUser());
     }
 
     /**

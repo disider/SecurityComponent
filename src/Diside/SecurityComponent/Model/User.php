@@ -5,7 +5,6 @@ namespace Diside\SecurityComponent\Model;
 class User
 {
     const ROLE_USER = 'ROLE_USER';
-    const ROLE_FREE_USER = 'ROLE_FREE_USER';
     const ROLE_MANAGER = 'ROLE_MANAGER';
     const ROLE_ADMIN = 'ROLE_ADMIN';
     const ROLE_SUPERADMIN = 'ROLE_SUPERADMIN';
@@ -147,11 +146,6 @@ class User
         return $this->hasRole(self::ROLE_MANAGER);
     }
 
-    public function isFreeUser()
-    {
-        return $this->hasRole(self::ROLE_FREE_USER);
-    }
-
     public function hasRole($role)
     {
         return in_array($role, $this->roles);
@@ -213,10 +207,6 @@ class User
     public function isAdminFor($companyId)
     {
         return $this->isAdmin() && ($this->getCompanyId() == $companyId);
-    }
-
-    public function updateExtraFields($extraFields)
-    {
     }
 
 }

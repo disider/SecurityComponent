@@ -72,7 +72,6 @@ class SaveUserInteractor extends AbstractInteractor
 
                 $company = $companyGateway->findOneById($request->companyId);
                 $user->setCompany($company);
-                $user->updateExtraFields($request->extraFields);
             }
             else if($executor->isAdmin()) {
                 $user->setCompany($executor->getCompany());

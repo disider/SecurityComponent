@@ -33,7 +33,8 @@ class RegisterUserInteractor extends AbstractInteractor
         $user = $this->buildUser($request);
         $user->setActive(false);
         $user->setRegistrationToken(TokenGenerator::generateToken());
-        $user->addRole(User::ROLE_FREE_USER);
+
+        $user = $this->prePersist($request, $user);
 
         $user = $userGateway->save($user);
 
@@ -60,5 +61,10 @@ class RegisterUserInteractor extends AbstractInteractor
     protected function buildUser(Request $request)
     {
         return new User(null, $request->email, $request->password, $request->salt);
+    }
+
+    protected function prePersist($request, $user)
+    {
+        return $user;
     }
 }
