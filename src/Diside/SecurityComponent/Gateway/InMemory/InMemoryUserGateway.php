@@ -5,59 +5,22 @@ namespace Diside\SecurityComponent\Gateway\InMemory;
 use Diside\SecurityComponent\Gateway\UserGateway;
 use Diside\SecurityComponent\Model\User;
 
-class InMemoryUserGateway implements UserGateway
+class InMemoryUserGateway extends InMemoryBaseGateway implements UserGateway
 {
-    private $users = array();
+    public function getName()
+    {
+        return self::NAME;
+    }
 
     public function save(User $user)
     {
-        if($user->getId() == null) {
-            $user->setId(count($this->users) + 1);
-        }
-
-        $this->users[$user->getId()] = $user;
-
-        return $user;
-    }
-
-    public function findAll(array $filters = array(), $pageIndex = 0, $pageSize = PHP_INT_MAX)
-    {
-        $users = $this->filterUsers($filters);
-
-        return array_slice($users, $pageIndex * $pageSize, $pageSize);
-    }
-
-    public function countAll(array $filters = array())
-    {
-        return count($this->findAll($filters));
-    }
-
-    public function delete($id)
-    {
-        /** @var User $user */
-        foreach($this->users as $user) {
-            if($user->getId() == $id) {
-                unset($this->users[$id]);
-                return $user;
-            }
-        }
-    }
-
-    public function findOneById($id)
-    {
-        /** @var User $user */
-        foreach($this->users as $user) {
-            if ($user->getId() == $id)
-                return $user;
-        }
-
-        return null;
+        return $this->persist($user);
     }
 
     public function findOneByEmail($email)
     {
         /** @var User $user */
-        foreach($this->users as $user) {
+        foreach($this->getItems() as $user) {
             if ($user->getEmail() == $email)
                 return $user;
         }
@@ -68,7 +31,7 @@ class InMemoryUserGateway implements UserGateway
     public function findOneByRegistrationToken($token)
     {
         /** @var User $user */
-        foreach($this->users as $user) {
+        foreach($this->getItems() as $user) {
             if ($user->getRegistrationToken() == $token)
                 return $user;
         }
@@ -79,7 +42,7 @@ class InMemoryUserGateway implements UserGateway
     public function findOneByResetPasswordToken($token)
     {
         /** @var User $user */
-        foreach($this->users as $user) {
+        foreach($this->getItems() as $user) {
             if ($user->getResetPasswordToken() == $token)
                 return $user;
         }
@@ -91,7 +54,7 @@ class InMemoryUserGateway implements UserGateway
     {
         $users = array();
 
-        foreach($this->users as $user) {
+        foreach($this->getItems() as $user) {
             if (in_array($user->getId(), $userIds))
                 $users[] = $user;
         }
@@ -99,10 +62,8 @@ class InMemoryUserGateway implements UserGateway
         return $users;
     }
 
-    private function filterUsers($filters)
+    protected function applyFilters($users, array $filters = array())
     {
-        $users = $this->users;
-
         if(!array_key_exists(self::FILTER_SUPERADMIN, $filters))
             $users = $this->filterOutSuperadmin($users);
 
@@ -152,13 +113,5 @@ class InMemoryUserGateway implements UserGateway
         }
 
         return $results;
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return self::NAME;
     }
 }
