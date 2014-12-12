@@ -23,7 +23,7 @@ class PageTest extends \PHPUnit_Framework_TestCase
     public function testAddTranslation()
     {
         $page = new Page(null);
-        $page->addTranslation(new PageTranslation(null, 'en', 'Title', '/en/title', 'Description'));
+        $page->addTranslation(new PageTranslation(null, 'en', '/en/title', 'Title', 'Description'));
 
         $this->assertTrue($page->hasTranslation('en'));
         $this->assertFalse($page->hasTranslation('it'));

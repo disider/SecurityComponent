@@ -17,15 +17,15 @@ class PageTranslation
     private $url;
 
     /** @var string */
-    private $description;
+    private $content;
 
-    public function __construct($id, $language, $title, $url, $description)
+    public function __construct($id, $language, $url, $title, $content)
     {
         $this->id = $id;
         $this->language = $language;
-        $this->title = $title;
         $this->url = $url;
-        $this->description = $description;
+        $this->title = $title;
+        $this->content = $content;
     }
 
     public function getId()
@@ -41,6 +41,21 @@ class PageTranslation
     public function getLanguage()
     {
         return $this->language;
+    }
+
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    public function getContent()
+    {
+        return $this->content;
     }
 
 }
