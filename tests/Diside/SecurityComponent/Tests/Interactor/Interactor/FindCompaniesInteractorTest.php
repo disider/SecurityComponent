@@ -27,7 +27,7 @@ class FindCompaniesInteractorTest extends BaseInteractorTest
      */
     public function testWhenThereAreNoCompanies_thenReturnEmptyList()
     {
-        $user = $this->givenSuperadmin('adam@example.com', 'Acme');
+        $user = $this->givenUser();
         $request = new FindCompaniesRequest($user->getId());
 
         $this->interactor->process($request, $this->presenter);

@@ -4,7 +4,6 @@ namespace Diside\SecurityComponent\Tests\Interactor\Interactor;
 
 use Diside\SecurityComponent\Gateway\UserGateway;
 use Diside\SecurityComponent\Interactor\Interactor\SaveUserInteractor;
-use Diside\SecurityComponent\Interactor\Presenter\SaveUserPresenter;
 use Diside\SecurityComponent\Interactor\Presenter\UserPresenter;
 use Diside\SecurityComponent\Interactor\Request\ChangePasswordRequest;
 use Diside\SecurityComponent\Interactor\Request\SaveUserRequest;

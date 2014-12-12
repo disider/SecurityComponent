@@ -9,7 +9,7 @@ use Diside\SecurityComponent\Interactor\Request\GetPageRequest;
 use Diside\SecurityComponent\Model\Page;
 use Diside\SecurityComponent\Model\PageTranslation;
 
-class GetPageInteractorTest extends BaseInteractorTest
+class GetPageInteractorTest extends BasePageInteractorTest
 {
     /** @var GetPageInteractor */
     private $interactor;
@@ -45,21 +45,6 @@ class GetPageInteractorTest extends BaseInteractorTest
         return new PagePresenterMock();
     }
 
-    /**
-     * @return Page
-     */
-    private function givenPage()
-    {
-        $page = new Page(null);
-        $page = $this->getGateway(PageGateway::NAME)->save($page);
-
-        return $page;
-    }
-
-    private function givenPageTranslation($language, $url)
-    {
-        return new PageTranslation(null, $language, $url, '', '');
-    }
 }
 
 class PagePresenterMock implements PagePresenter
