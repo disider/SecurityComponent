@@ -14,7 +14,8 @@ class PageTest extends \PHPUnit_Framework_TestCase
     {
         $page = new Page(null);
 
-        $this->assertThat($page->countTranslation(), $this->equalTo(0));
+        $this->assertThat($page->countTranslations(), $this->equalTo(0));
+        $this->assertThat($page->getTranslations(), $this->equalTo(array()));
     }
 
     /**
@@ -27,7 +28,11 @@ class PageTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue($page->hasTranslation('en'));
         $this->assertFalse($page->hasTranslation('it'));
-        $this->assertThat($page->countTranslation(), $this->equalTo(1));
+        $this->assertThat($page->countTranslations(), $this->equalTo(1));
+
+        $translations = $page->getTranslations();
+
+        $this->assertThat(count($translations), $this->equalTo(1));
     }
 
 }

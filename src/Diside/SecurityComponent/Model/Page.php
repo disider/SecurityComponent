@@ -25,6 +25,11 @@ class Page
         $this->id = $id;
     }
 
+    public function getTranslations()
+    {
+        return $this->translations;
+    }
+
     public function countTranslations()
     {
         return count($this->translations);
