@@ -2,6 +2,7 @@
 
 namespace Diside\SecurityComponent\Interactor\Interactor;
 
+use Diside\SecurityComponent\Gateway\UserGateway;
 use Diside\SecurityComponent\Interactor\AbstractInteractor;
 use Diside\SecurityComponent\Interactor\Request;
 use Diside\SecurityComponent\Interactor\Request\ConfirmUserRegistrationRequest;
@@ -13,7 +14,7 @@ class ConfirmUserRegistrationInteractor extends AbstractInteractor
 
     public function process(Request $request, Presenter $presenter)
     {
-        $userGateway = $this->getGateway('user_gateway');
+        $userGateway = $this->getGateway(UserGateway::NAME);
 
         /** @var ConfirmUserRegistrationRequest $request */
         /** @var UserPresenter $presenter */

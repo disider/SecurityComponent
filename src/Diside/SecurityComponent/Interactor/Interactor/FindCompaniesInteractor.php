@@ -2,6 +2,8 @@
 
 namespace Diside\SecurityComponent\Interactor\Interactor;
 
+use Diside\SecurityComponent\Gateway\CompanyGateway;
+use Diside\SecurityComponent\Gateway\UserGateway;
 use Diside\SecurityComponent\Interactor\AbstractInteractor;
 use Diside\SecurityComponent\Interactor\Presenter;
 use Diside\SecurityComponent\Interactor\Presenter\CompaniesPresenter;
@@ -12,8 +14,8 @@ class FindCompaniesInteractor extends AbstractInteractor
 {
     public function process(Request $request, Presenter $presenter)
     {
-        $companyGateway = $this->getGateway('company_gateway');
-        $userGateway = $this->getGateway('user_gateway');
+        $companyGateway = $this->getGateway(CompanyGateway::NAME);
+        $userGateway = $this->getGateway(UserGateway::NAME);
 
         /** @var FindCompaniesRequest $request */
         /** @var CompaniesPresenter $presenter */

@@ -7,7 +7,7 @@ use Diside\SecurityComponent\Interactor\Presenter\UsersPresenter;
 use Diside\SecurityComponent\Interactor\Request\FindUsersRequest;
 use Diside\SecurityComponent\Model\User;
 
-class FindUsersInteractorTest extends BaseUserInteractorTest
+class FindUsersInteractorTest extends BaseInteractorTest
 {
     /** @var FindUsersInteractor */
     private $interactor;

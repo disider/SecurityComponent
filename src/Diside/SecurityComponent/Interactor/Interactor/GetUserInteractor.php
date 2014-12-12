@@ -16,7 +16,7 @@ class GetUserInteractor extends AbstractInteractor
 {
     public function process(Request $request, Presenter $presenter)
     {
-        $userGateway = $this->getGateway('user_gateway');
+        $userGateway = $this->getGateway(UserGateway::NAME);
 
         /** @var GetUserByEmailRequest $request */
         /** @var UserPresenter $presenter */

@@ -1,7 +1,7 @@
 {
   "name": "diside/security-component",
   "autoload": {
-    "psr-0": {"": "src/"}
+    "psr-0": {"Diside\\SecurityComponent\\": "src/Diside/SecurityComponent"}
   },
   "require": {
     "php": ">=5.3.0"

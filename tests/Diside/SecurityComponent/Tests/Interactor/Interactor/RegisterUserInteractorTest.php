@@ -8,7 +8,7 @@ use Diside\SecurityComponent\Interactor\Interactor\RegisterUserInteractor;
 use Diside\SecurityComponent\Interactor\Request\RegisterUserRequest;
 use Diside\SecurityComponent\Model\User;
 
-class RegisterUserInteractorTest extends BaseUserInteractorTest
+class RegisterInteractorTest extends BaseInteractorTest
 {
     /** @var RegisterUserInteractor */
     private $interactor;

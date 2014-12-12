@@ -2,13 +2,14 @@
 
 namespace Diside\SecurityComponent\Tests\Interactor\Interactor;
 
+use Diside\SecurityComponent\Gateway\CompanyGateway;
 use Diside\SecurityComponent\Interactor\Interactor\SaveCompanyInteractor;
 use Diside\SecurityComponent\Interactor\Presenter\CompanyPresenter;
 use Diside\SecurityComponent\Interactor\Presenter\SaveCompanyPresenter;
 use Diside\SecurityComponent\Interactor\Request\SaveCompanyRequest;
 use Diside\SecurityComponent\Model\Company;
 
-class SaveCompanyInteractorTest extends BaseUserInteractorTest
+class SaveCompanyInteractorTest extends BaseInteractorTest
 {
     /** @var SaveCompanyInteractor */
     private $interactor;
@@ -59,7 +60,7 @@ class SaveCompanyInteractorTest extends BaseUserInteractorTest
     public function whenSavingExistingCompany_thenReturnSavedCompany()
     {
         $company = new Company(1, 'Acme');
-        $this->companyGateway->save($company);
+        $this->getGateway(CompanyGateway::NAME)->save($company);
 
         $request = new SaveCompanyRequest(1, 'Acme');
 
@@ -69,7 +70,7 @@ class SaveCompanyInteractorTest extends BaseUserInteractorTest
 
         $this->assertCompany($company, $request);
 
-        $this->assertThat(count($this->companyGateway->findAll()), $this->equalTo(1));
+        $this->assertThat(count($this->getGateway(CompanyGateway::NAME)->findAll()), $this->equalTo(1));
     }
 
     private function assertCompany(Company $company, $request)

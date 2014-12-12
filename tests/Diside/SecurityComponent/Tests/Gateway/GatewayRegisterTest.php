@@ -4,11 +4,6 @@ namespace Diside\SecurityComponent\Tests\Interactor;
 
 use Diside\SecurityComponent\Gateway\Gateway;
 use Diside\SecurityComponent\Gateway\GatewayRegister;
-use Diside\SecurityComponent\Interactor\Interactor\Presenter\ConfirmUserRegistrationPresenter;
-use Diside\SecurityComponent\Interactor\Interactor\Presenter\UserPresenter;
-use Diside\SecurityComponent\Interactor\Interactor\ConfirmUserRegistrationInteractor;
-use Diside\SecurityComponent\Interactor\Interactor\Request\ConfirmUserRegistrationRequest;
-use Diside\SecurityComponent\Model\User;
 
 class GatewayRegisterTest extends \PHPUnit_Framework_TestCase
 {

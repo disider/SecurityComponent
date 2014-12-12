@@ -2,6 +2,8 @@
 
 namespace Diside\SecurityComponent\Gateway;
 
+use Diside\SecurityComponent\Model\Page;
+
 interface Gateway
 {
     /**

@@ -15,7 +15,7 @@ class RegisterUserInteractor extends AbstractInteractor
 {
     public function process(Request $request, Presenter $presenter)
     {
-        $userGateway = $this->getGateway('user_gateway');
+        $userGateway = $this->getGateway(UserGateway::NAME);
 
         /** @var RegisterUserRequest $request */
         /** @var UserPresenter $presenter */

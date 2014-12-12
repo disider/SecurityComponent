@@ -7,7 +7,7 @@ use Diside\SecurityComponent\Interactor\Presenter\CompaniesPresenter;
 use Diside\SecurityComponent\Interactor\Request\FindCompaniesRequest;
 use Diside\SecurityComponent\Model\User;
 
-class FindCompaniesInteractorTest extends BaseUserInteractorTest
+class FindCompaniesInteractorTest extends BaseInteractorTest
 {
     /** @var FindCompaniesInteractor */
     private $interactor;

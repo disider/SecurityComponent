@@ -2,6 +2,7 @@
 
 namespace Diside\SecurityComponent\Interactor\Interactor;
 
+use Diside\SecurityComponent\Gateway\UserGateway;
 use Diside\SecurityComponent\Interactor\AbstractInteractor;
 use Diside\SecurityComponent\Interactor\Presenter;
 use Diside\SecurityComponent\Interactor\Presenter\DeleteUserPresenter;
@@ -13,7 +14,7 @@ class DeleteUserInteractor extends AbstractInteractor
 {
     public function process(Request $request, Presenter $presenter)
     {
-        $userGateway = $this->getGateway('user_gateway');
+        $userGateway = $this->getGateway(UserGateway::NAME);
 
         /** @var DeleteUserRequest $request */
         /** @var UserPresenter $presenter */

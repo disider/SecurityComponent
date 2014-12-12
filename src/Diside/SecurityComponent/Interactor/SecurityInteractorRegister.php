@@ -21,6 +21,8 @@ class SecurityInteractorRegister extends InteractorRegister
 
     const FIND_LOGS = 'find_logs';
 
+    const GET_PAGE = 'get_page';
+
     public function __construct()
     {
         $this->register(self::FIND_COMPANIES, '\Diside\SecurityComponent\Interactor\Interactor\FindCompaniesInteractor');
@@ -36,5 +38,6 @@ class SecurityInteractorRegister extends InteractorRegister
         $this->register(self::SAVE_USER, '\Diside\SecurityComponent\Interactor\Interactor\SaveUserInteractor');
         $this->register(self::DELETE_USER, '\Diside\SecurityComponent\Interactor\Interactor\DeleteUserInteractor');
         $this->register(self::FIND_LOGS, '\Diside\SecurityComponent\Interactor\Interactor\FindLogsInteractor');
+        $this->register(self::GET_PAGE, '\Diside\SecurityComponent\Interactor\Interactor\GetPageInteractor');
     }
 }
