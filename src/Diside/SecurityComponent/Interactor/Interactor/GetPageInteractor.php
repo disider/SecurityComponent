@@ -20,12 +20,7 @@ class GetPageInteractor extends AbstractInteractor
         /** @var GetPageRequest $request */
         /** @var PagePresenter $presenter */
 
-        if ($request->id === null) {
-            $presenter->setErrors(array(PagePresenter::UNDEFINED_PAGE_ID));
-            return;
-        }
-
-        $page = $pageGateway->findOneById($request->id);
+        $page = $pageGateway->findOneByLanguageAndUrl($request->language, $request->url);
 
         if($page == null) {
             $presenter->setErrors(array(PagePresenter::UNDEFINED_PAGE));

@@ -30,9 +30,9 @@ class GetPageInteractorTest extends BaseInteractorTest
     public function testProcess()
     {
         $page = $this->givenPage();
-        $page->addTranslation($this->givenPageTranslation('en'));
+        $page->addTranslation($this->givenPageTranslation('en', 'url'));
 
-        $request = new GetPageRequest(null, $page->getId());
+        $request = new GetPageRequest(null, 'en', 'url');
         $this->interactor->process($request, $this->presenter);
 
         /** @var Page $user */
@@ -56,9 +56,9 @@ class GetPageInteractorTest extends BaseInteractorTest
         return $page;
     }
 
-    private function givenPageTranslation($language)
+    private function givenPageTranslation($language, $url)
     {
-        return new PageTranslation(null, $language, '', '', '');
+        return new PageTranslation(null, $language, $url, '', '');
     }
 }
 

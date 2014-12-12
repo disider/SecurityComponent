@@ -33,6 +33,17 @@ class PageTest extends \PHPUnit_Framework_TestCase
         $translations = $page->getTranslations();
 
         $this->assertThat(count($translations), $this->equalTo(1));
+        $this->assertNotNull($page->getTranslation('en'));
+    }
+
+    /**
+     * @test
+     * @expectedException \Diside\SecurityComponent\Exception\UndefinedTranslationException
+     */
+    public function testGetTranslation()
+    {
+        $page = new Page(null);
+        $page->getTranslation('unknown');
     }
 
 }

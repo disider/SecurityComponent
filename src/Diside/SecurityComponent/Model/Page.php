@@ -2,6 +2,8 @@
 
 namespace Diside\SecurityComponent\Model;
 
+use Diside\SecurityComponent\Exception\UndefinedTranslationException;
+
 class Page
 {
     /** @var int */
@@ -43,11 +45,25 @@ class Page
     public function hasTranslation($language)
     {
         /** @var PageTranslation $translation */
-        foreach($this->translations as $translation)
-            if($translation->getLanguage() == $language)
+        foreach ($this->translations as $translation) {
+            if ($translation->getLanguage() == $language) {
                 return true;
+            }
+        }
 
         return false;
+    }
+
+    public function getTranslation($language)
+    {
+        /** @var PageTranslation $translation */
+        foreach ($this->translations as $translation) {
+            if ($translation->getLanguage() == $language) {
+                return $translation;
+            }
+        }
+
+        throw new UndefinedTranslationException('Page has no translation for ' . $language);
     }
 
 }

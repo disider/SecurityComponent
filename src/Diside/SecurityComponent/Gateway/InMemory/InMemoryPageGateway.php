@@ -21,4 +21,20 @@ class InMemoryPageGateway extends InMemoryBaseGateway implements PageGateway
     {
         return $items;
     }
+
+    public function findOneByLanguageAndUrl($language, $url)
+    {
+        /** @var Page $page*/
+        foreach ($this->getItems() as $page)
+            if ($page->hasTranslation($language)) {
+                $translation = $page->getTranslation('en');
+
+                if ($translation->getUrl() == $url) {
+                    return $page;
+                }
+            }
+
+        return null;
+    }
+
 }

@@ -9,12 +9,16 @@ class GetPageRequest implements Request
     /** @var int */
     public $executorId;
 
-    /** @var int */
-    public $id;
+    /** @var string */
+    public $language;
 
-    public function __construct($executorId, $id)
+    /** @var string */
+    public $url;
+
+    public function __construct($executorId, $language, $url)
     {
         $this->executorId = $executorId;
-        $this->id = $id;
+        $this->language = $language;
+        $this->url = $url;
     }
 } 
