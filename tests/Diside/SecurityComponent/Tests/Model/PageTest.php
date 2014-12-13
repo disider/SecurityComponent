@@ -25,10 +25,21 @@ class PageTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function testToString() {
+    public function testToString()
+    {
         $page = $this->givenPage();
 
-        $this->assertThat((string) $page, $this->equalTo($page->getTitle()));
+        $this->assertThat((string)$page, $this->equalTo($page->getTitle()));
+    }
+
+    /**
+     * @test
+     */
+    public function whenRetrievingDefaultTranslation_thenReturnPage()
+    {
+        $page = $this->givenPage();
+
+        $this->assertThat($page->getTranslation($page->getLanguage()), $this->equalTo($page));
     }
 
     /**

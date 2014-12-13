@@ -43,6 +43,9 @@ class Page extends PageTranslation
 
     public function getTranslation($language)
     {
+        if($language == $this->getLanguage())
+            return $this;
+
         /** @var PageTranslation $translation */
         foreach ($this->translations as $translation) {
             if ($translation->getLanguage() == $language) {
