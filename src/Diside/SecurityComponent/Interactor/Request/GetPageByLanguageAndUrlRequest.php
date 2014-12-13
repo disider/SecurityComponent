@@ -4,7 +4,7 @@ namespace Diside\SecurityComponent\Interactor\Request;
 
 use Diside\SecurityComponent\Interactor\Request;
 
-class GetPageRequest implements Request
+class GetPageByLanguageAndUrlRequest implements Request
 {
     /** @var int */
     public $executorId;

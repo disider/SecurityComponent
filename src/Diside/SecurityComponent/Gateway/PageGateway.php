@@ -26,4 +26,10 @@ interface PageGateway extends Gateway
      * @return Page
      */
     public function findOneByLanguageAndUrl($language, $url);
+
+    /**
+     * @param int $id
+     * @return Page
+     */
+    public function findOneById($id);
 }

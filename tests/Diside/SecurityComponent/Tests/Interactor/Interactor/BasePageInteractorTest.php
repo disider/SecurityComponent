@@ -5,7 +5,7 @@ namespace Diside\SecurityComponent\Tests\Interactor\Interactor;
 use Diside\SecurityComponent\Gateway\PageGateway;
 use Diside\SecurityComponent\Interactor\Interactor\GetPageInteractor;
 use Diside\SecurityComponent\Interactor\Presenter\PagePresenter;
-use Diside\SecurityComponent\Interactor\Request\GetPageRequest;
+use Diside\SecurityComponent\Interactor\Request\GetPageByLanguageAndUrlRequest;
 use Diside\SecurityComponent\Model\Page;
 use Diside\SecurityComponent\Model\PageTranslation;
 

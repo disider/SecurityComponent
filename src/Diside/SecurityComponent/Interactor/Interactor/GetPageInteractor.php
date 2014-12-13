@@ -7,7 +7,7 @@ use Diside\SecurityComponent\Interactor\AbstractInteractor;
 use Diside\SecurityComponent\Interactor\Presenter\PagePresenter;
 use Diside\SecurityComponent\Interactor\Presenter;
 use Diside\SecurityComponent\Interactor\Request;
-use Diside\SecurityComponent\Interactor\Request\GetPageRequest;
+use Diside\SecurityComponent\Interactor\Request\GetPageByLanguageAndUrlRequest;
 
 class GetPageInteractor extends AbstractInteractor
 {
@@ -17,10 +17,12 @@ class GetPageInteractor extends AbstractInteractor
         /** @var PageGateway $pageGateway */
         $pageGateway = $this->getGateway(PageGateway::NAME);
 
-        /** @var GetPageRequest $request */
         /** @var PagePresenter $presenter */
 
-        $page = $pageGateway->findOneByLanguageAndUrl($request->language, $request->url);
+        if($request instanceof GetPageByLanguageAndUrlRequest)
+            $page = $pageGateway->findOneByLanguageAndUrl($request->language, $request->url);
+        else
+            $page = $pageGateway->findOneById($request->id);
 
         if($page == null) {
             $presenter->setErrors(array(PagePresenter::UNDEFINED_PAGE));

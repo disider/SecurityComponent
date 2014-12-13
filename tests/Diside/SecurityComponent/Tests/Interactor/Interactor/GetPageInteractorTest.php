@@ -5,7 +5,8 @@ namespace Diside\SecurityComponent\Tests\Interactor\Interactor;
 use Diside\SecurityComponent\Gateway\PageGateway;
 use Diside\SecurityComponent\Interactor\Interactor\GetPageInteractor;
 use Diside\SecurityComponent\Interactor\Presenter\PagePresenter;
-use Diside\SecurityComponent\Interactor\Request\GetPageRequest;
+use Diside\SecurityComponent\Interactor\Request\GetPageByIdRequest;
+use Diside\SecurityComponent\Interactor\Request\GetPageByLanguageAndUrlRequest;
 use Diside\SecurityComponent\Model\Page;
 use Diside\SecurityComponent\Model\PageTranslation;
 
@@ -27,12 +28,28 @@ class GetPageInteractorTest extends BasePageInteractorTest
     /**
      * @test
      */
-    public function testProcess()
+    public function testGetByLanguageAndUrl()
     {
         $page = $this->givenPage();
         $page->addTranslation($this->givenPageTranslation('en', 'url'));
 
-        $request = new GetPageRequest(null, 'en', 'url');
+        $request = new GetPageByLanguageAndUrlRequest(null, 'en', 'url');
+        $this->interactor->process($request, $this->presenter);
+
+        /** @var Page $user */
+        $page = $this->presenter->getPage();
+        $this->assertTrue($page->hasTranslation('en'));
+    }
+
+    /**
+     * @test
+     */
+    public function testGetById()
+    {
+        $page = $this->givenPage();
+        $page->addTranslation($this->givenPageTranslation('en', 'url'));
+
+        $request = new GetPageByIdRequest(null, $page->getId());
         $this->interactor->process($request, $this->presenter);
 
         /** @var Page $user */
