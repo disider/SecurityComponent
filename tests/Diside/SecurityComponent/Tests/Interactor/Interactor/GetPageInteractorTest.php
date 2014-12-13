@@ -30,7 +30,7 @@ class GetPageInteractorTest extends BasePageInteractorTest
      */
     public function testGetByLanguageAndUrl()
     {
-        $page = $this->givenPage();
+        $page = $this->givenPage('it', 'url');
         $page->addTranslation($this->givenPageTranslation('en', 'url'));
 
         $request = new GetPageByLanguageAndUrlRequest(null, 'en', 'url');
@@ -46,7 +46,7 @@ class GetPageInteractorTest extends BasePageInteractorTest
      */
     public function testGetById()
     {
-        $page = $this->givenPage();
+        $page = $this->givenPage('it', 'url');
         $page->addTranslation($this->givenPageTranslation('en', 'url'));
 
         $request = new GetPageByIdRequest(null, $page->getId());

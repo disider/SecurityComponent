@@ -4,28 +4,10 @@ namespace Diside\SecurityComponent\Model;
 
 use Diside\SecurityComponent\Exception\UndefinedTranslationException;
 
-class Page
+class Page extends PageTranslation
 {
-    /** @var int */
-    private $id;
-
     /** @var array */
     private $translations = array();
-
-    public function __construct($id)
-    {
-        $this->id = $id;
-    }
-
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
 
     public function getTranslations()
     {

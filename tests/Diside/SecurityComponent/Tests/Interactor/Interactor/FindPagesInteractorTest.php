@@ -56,7 +56,7 @@ class FindPagesInteractorTest extends BasePageInteractorTest
     private function givenPages($number)
     {
         for ($i = 0; $i < $number; ++$i) {
-            $this->givenPage();
+            $this->givenPage('en', '/page' . $i);
         }
     }
 

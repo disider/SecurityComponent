@@ -29,7 +29,7 @@ class SavePageInteractorTest extends BasePageInteractorTest
      */
     public function whenSavingUnauthorized_thenReturnUnauthorized()
     {
-        $request = new SavePageRequest(null, null);
+        $request = new SavePageRequest(null, null, '', '', '', '');
 
         $this->interactor->process($request, $this->presenter);
 
@@ -44,8 +44,8 @@ class SavePageInteractorTest extends BasePageInteractorTest
     public function testSuccess()
     {
         $user = $this->givenUser();
-        $request = new SavePageRequest($user->getId(), null);
-        $request->addTranslation(null, 'en', 'url', 'title', 'content');
+        $request = new SavePageRequest($user->getId(), null, 'en', 'url', 'title', 'content');
+        $request->addTranslation(null, 'it', 'it/url', 'titolo', 'contenuto');
 
         $this->interactor->process($request, $this->presenter);
 

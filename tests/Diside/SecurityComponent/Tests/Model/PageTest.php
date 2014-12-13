@@ -12,8 +12,12 @@ class PageTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstructor()
     {
-        $page = new Page(null);
+        $page = $this->givenPage();
 
+        $this->assertThat($page->getLanguage(), $this->equalTo('en'));
+        $this->assertThat($page->getUrl(), $this->equalTo('url'));
+        $this->assertThat($page->getTitle(), $this->equalTo('title'));
+        $this->assertThat($page->getContent(), $this->equalTo('content'));
         $this->assertThat($page->countTranslations(), $this->equalTo(0));
         $this->assertThat($page->getTranslations(), $this->equalTo(array()));
     }
@@ -23,17 +27,17 @@ class PageTest extends \PHPUnit_Framework_TestCase
      */
     public function testAddTranslation()
     {
-        $page = new Page(null);
-        $page->addTranslation(new PageTranslation(null, 'en', '/en/title', 'Title', 'Description'));
+        $page = $this->givenPage();
+        $page->addTranslation(new PageTranslation(null, 'it', '/it/titolo', 'Titolo', 'Descrizione'));
 
-        $this->assertTrue($page->hasTranslation('en'));
-        $this->assertFalse($page->hasTranslation('it'));
+        $this->assertTrue($page->hasTranslation('it'));
+        $this->assertFalse($page->hasTranslation('es'));
         $this->assertThat($page->countTranslations(), $this->equalTo(1));
 
         $translations = $page->getTranslations();
 
         $this->assertThat(count($translations), $this->equalTo(1));
-        $this->assertNotNull($page->getTranslation('en'));
+        $this->assertNotNull($page->getTranslation('it'));
     }
 
     /**
@@ -42,8 +46,18 @@ class PageTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetTranslation()
     {
-        $page = new Page(null);
+        $page = $this->givenPage();
         $page->getTranslation('unknown');
+    }
+
+    /**
+     * @return Page
+     */
+    protected function givenPage()
+    {
+        $page = new Page(null, 'en', 'url', 'title', 'content');
+
+        return $page;
     }
 
 }

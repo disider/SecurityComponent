@@ -14,9 +14,9 @@ abstract class BasePageInteractorTest extends BaseInteractorTest
     /**
      * @return Page
      */
-    protected function givenPage()
+    protected function givenPage($language, $url)
     {
-        $page = new Page(null);
+        $page = new Page(null, $language, $url, 'title', 'content');
         $page = $this->getGateway(PageGateway::NAME)->save($page);
 
         return $page;

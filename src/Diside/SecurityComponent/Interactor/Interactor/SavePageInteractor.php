@@ -26,7 +26,7 @@ class SavePageInteractor extends AbstractInteractor
         /** @var PageGateway $pageGateway */
         $pageGateway = $this->getGateway(PageGateway::NAME);
 
-        $page = new Page($request->id);
+        $page = new Page($request->id, $request->language, $request->url, $request->title, $request->content);
         foreach($request->translations as $translation)
             $page->addTranslation($this->buildTranslation($translation));
 
