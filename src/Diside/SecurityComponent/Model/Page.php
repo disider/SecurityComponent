@@ -31,6 +31,9 @@ class Page extends PageTranslation
 
     public function hasTranslation($language)
     {
+        if($language == $this->getLanguage())
+            return true;
+
         /** @var PageTranslation $translation */
         foreach ($this->translations as $translation) {
             if ($translation->getLanguage() == $language) {
@@ -47,11 +50,9 @@ class Page extends PageTranslation
             return $this;
 
         /** @var PageTranslation $translation */
-        foreach ($this->translations as $translation) {
-            if ($translation->getLanguage() == $language) {
+        foreach ($this->translations as $translation)
+            if ($translation->getLanguage() == $language)
                 return $translation;
-            }
-        }
 
         throw new UndefinedTranslationException('Page has no translation for ' . $language);
     }

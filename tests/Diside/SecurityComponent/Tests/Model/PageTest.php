@@ -20,6 +20,7 @@ class PageTest extends \PHPUnit_Framework_TestCase
         $this->assertThat($page->getContent(), $this->equalTo('content'));
         $this->assertThat($page->countTranslations(), $this->equalTo(0));
         $this->assertThat($page->getTranslations(), $this->equalTo(array()));
+        $this->assertTrue($page->hasTranslation('en'));
     }
 
     /**
