@@ -9,11 +9,6 @@ class Page extends PageTranslation
     /** @var array */
     private $translations = array();
 
-    public function __toString()
-    {
-        return $this->getTitle();
-    }
-
     public function getTranslations()
     {
         return $this->translations;

@@ -28,6 +28,11 @@ class PageTranslation
         $this->content = $content;
     }
 
+    public function __toString()
+    {
+        return $this->getTitle();
+    }
+
     public function getId()
     {
         return $this->id;
