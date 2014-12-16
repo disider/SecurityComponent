@@ -7,7 +7,7 @@ use Diside\SecurityComponent\Interactor\Presenter\CompaniesPresenter;
 use Diside\SecurityComponent\Interactor\Request\FindCompaniesRequest;
 use Diside\SecurityComponent\Model\User;
 
-class FindCompaniesInteractorTest extends BaseUserInteractorTest
+class FindCompaniesInteractorTest extends BaseInteractorTest
 {
     /** @var FindCompaniesInteractor */
     private $interactor;
@@ -27,7 +27,7 @@ class FindCompaniesInteractorTest extends BaseUserInteractorTest
      */
     public function testWhenThereAreNoCompanies_thenReturnEmptyList()
     {
-        $user = $this->givenSuperadmin('adam@example.com', 'Acme');
+        $user = $this->givenUser();
         $request = new FindCompaniesRequest($user->getId());
 
         $this->interactor->process($request, $this->presenter);

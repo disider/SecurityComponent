@@ -16,8 +16,8 @@ class SaveUserInteractor extends AbstractInteractor
 {
     public function process(Request $request, Presenter $presenter)
     {
-        $companyGateway = $this->getGateway('company_gateway');
-        $userGateway = $this->getGateway('user_gateway');
+        $companyGateway = $this->getGateway(CompanyGateway::NAME);
+        $userGateway = $this->getGateway(UserGateway::NAME);
 
         /** @var SaveUserRequest $request */
         /** @var UserPresenter $presenter */

@@ -8,7 +8,7 @@ use Diside\SecurityComponent\Interactor\Presenter\UserPresenter;
 use Diside\SecurityComponent\Interactor\Request\RequestResetPasswordRequest;
 use Diside\SecurityComponent\Model\User;
 
-class RequestResetPasswordInteractorTest extends BaseUserInteractorTest
+class RequestResetPasswordInteractorTest extends BaseInteractorTest
 {
     /** @var RequestResetPasswordInteractor */
     private $interactor;

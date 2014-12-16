@@ -2,16 +2,14 @@
 
 namespace Diside\SecurityComponent\Tests\Interactor\Interactor;
 
-use Diside\SecurityComponent\Interactor\Presenter\SaveUserPresenter;
+use Diside\SecurityComponent\Gateway\UserGateway;
+use Diside\SecurityComponent\Interactor\Interactor\SaveUserInteractor;
 use Diside\SecurityComponent\Interactor\Presenter\UserPresenter;
 use Diside\SecurityComponent\Interactor\Request\ChangePasswordRequest;
 use Diside\SecurityComponent\Interactor\Request\SaveUserRequest;
-use Diside\SecurityComponent\Interactor\Interactor\SaveUserInteractor;
-use Diside\SecurityComponent\Model\Company;
-use Diside\SecurityComponent\Model\ExtendedUser;
 use Diside\SecurityComponent\Model\User;
 
-class SaveUserInteractorTest extends BaseUserInteractorTest
+class SaveUserInteractorTest extends BaseInteractorTest
 {
     /** @var SaveUserInteractor */
     private $interactor;
@@ -78,7 +76,7 @@ class SaveUserInteractorTest extends BaseUserInteractorTest
     {
         $user = new User(null, 'adam@example.com', 'adamsecret', 'salt');
 
-        $user = $this->userGateway->save($user);
+        $user = $this->getGateway(UserGateway::NAME)->save($user);
 
         $request = new SaveUserRequest($user->getId(), $user->getId(), 'adam@example.com', null, null, true, array());
 
@@ -133,7 +131,9 @@ class SaveUserInteractorTest extends BaseUserInteractorTest
         $company = $this->givenCompany('Acme');
         $superadmin = $this->givenSuperadmin();
 
-        $request = new SaveUserRequest($superadmin->getId(), null, 'user@example.com', 'usersecret', null, true, array());
+        $request = new SaveUserRequest(
+            $superadmin->getId(), null, 'user@example.com', 'usersecret', null, true, array()
+        );
         $request->companyId = $company->getId();
 
         $this->interactor->process($request, $this->presenter);
@@ -226,7 +226,15 @@ class SaveUserInteractorTest extends BaseUserInteractorTest
     {
         $superadmin = $this->givenSuperadmin();
 
-        $request = new SaveUserRequest($superadmin->getId(), null, 'manager@example.com', 'managersecret', null, true, array(User::ROLE_MANAGER));
+        $request = new SaveUserRequest(
+            $superadmin->getId(),
+            null,
+            'manager@example.com',
+            'managersecret',
+            null,
+            true,
+            array(User::ROLE_MANAGER)
+        );
 
         $this->interactor->process($request, $this->presenter);
 
@@ -242,7 +250,15 @@ class SaveUserInteractorTest extends BaseUserInteractorTest
     {
         $superadmin = $this->givenSuperadmin();
 
-        $request = new SaveUserRequest($superadmin->getId(), null, 'admin@example.com', 'adminsecret', null, true, array(User::ROLE_ADMIN));
+        $request = new SaveUserRequest(
+            $superadmin->getId(),
+            null,
+            'admin@example.com',
+            'adminsecret',
+            null,
+            true,
+            array(User::ROLE_ADMIN)
+        );
 
         $this->interactor->process($request, $this->presenter);
 
@@ -258,7 +274,15 @@ class SaveUserInteractorTest extends BaseUserInteractorTest
     {
         $admin = $this->givenAdmin('Acme');
 
-        $request = new SaveUserRequest($admin->getId(), null, 'manager@example.com', 'managersecret', null, true, array(User::ROLE_MANAGER));
+        $request = new SaveUserRequest(
+            $admin->getId(),
+            null,
+            'manager@example.com',
+            'managersecret',
+            null,
+            true,
+            array(User::ROLE_MANAGER)
+        );
 
         $this->interactor->process($request, $this->presenter);
 
@@ -274,9 +298,17 @@ class SaveUserInteractorTest extends BaseUserInteractorTest
         $admin = $this->givenAdmin('Acme');
 
         $user = new User(1, 'adam@example.com', 'adamsecret', '');
-        $this->userGateway->save($user);
+        $this->getGateway(UserGateway::NAME)->save($user);
 
-        $request = new SaveUserRequest($admin->getId(), 1, 'newemail@example.com', 'newpassword', '', true, $user->getRoles());
+        $request = new SaveUserRequest(
+            $admin->getId(),
+            1,
+            'newemail@example.com',
+            'newpassword',
+            '',
+            true,
+            $user->getRoles()
+        );
 
         $this->interactor->process($request, $this->presenter);
 
@@ -284,7 +316,7 @@ class SaveUserInteractorTest extends BaseUserInteractorTest
 
         $this->assertUser($user, $request);
 
-        $this->assertThat(count($this->userGateway->findAll()), $this->equalTo(1));
+        $this->assertThat(count($this->getGateway(UserGateway::NAME)->findAll()), $this->equalTo(1));
     }
 
     /**
@@ -296,7 +328,15 @@ class SaveUserInteractorTest extends BaseUserInteractorTest
 
         $user = $this->givenUser('user@example.com', 'password', array(), 'Acme');
 
-        $request = new SaveUserRequest($admin->getId(), $user->getId(), 'newemail@example.com', 'newpassword', '', true, array(User::ROLE_MANAGER));
+        $request = new SaveUserRequest(
+            $admin->getId(),
+            $user->getId(),
+            'newemail@example.com',
+            'newpassword',
+            '',
+            true,
+            array(User::ROLE_MANAGER)
+        );
         $request->companyId = $user->getCompanyId();
 
         $this->interactor->process($request, $this->presenter);
@@ -314,7 +354,15 @@ class SaveUserInteractorTest extends BaseUserInteractorTest
         $user = $this->givenUser('user@example.com', 'password', array());
         $user->setSalt('1234');
 
-        $request = new SaveUserRequest($user->getId(), $user->getId(), 'newemail@example.com', null, null, true, $user->getRoles());
+        $request = new SaveUserRequest(
+            $user->getId(),
+            $user->getId(),
+            'newemail@example.com',
+            null,
+            null,
+            true,
+            $user->getRoles()
+        );
 
         $this->interactor->process($request, $this->presenter);
 
@@ -333,7 +381,15 @@ class SaveUserInteractorTest extends BaseUserInteractorTest
         $user = $this->givenUser('user@example.com', 'password', array());
         $user->setSalt('1234');
 
-        $request = new SaveUserRequest($user->getId(), $user->getId(), 'newemail@example.com', 'newpassword', null, true, $user->getRoles());
+        $request = new SaveUserRequest(
+            $user->getId(),
+            $user->getId(),
+            'newemail@example.com',
+            'newpassword',
+            null,
+            true,
+            $user->getRoles()
+        );
 
         $this->interactor->process($request, $this->presenter);
 
@@ -351,7 +407,15 @@ class SaveUserInteractorTest extends BaseUserInteractorTest
 
         $user = $this->givenUser('user@example.com', 'password', array(), 'Bros');
 
-        $request = new SaveUserRequest($admin->getId(), $user->getId(), 'newemail@example.com', 'newpassword', null, true, $user->getRoles());
+        $request = new SaveUserRequest(
+            $admin->getId(),
+            $user->getId(),
+            'newemail@example.com',
+            'newpassword',
+            null,
+            true,
+            $user->getRoles()
+        );
         $request->companyId = $user->getCompanyId();
 
         $this->interactor->process($request, $this->presenter);
@@ -369,7 +433,15 @@ class SaveUserInteractorTest extends BaseUserInteractorTest
 
         $user = $this->givenUser();
 
-        $request = new SaveUserRequest($superadmin->getId(), $user->getId(), 'newemail@example.com', 'newpassword', null, true, array(User::ROLE_MANAGER));
+        $request = new SaveUserRequest(
+            $superadmin->getId(),
+            $user->getId(),
+            'newemail@example.com',
+            'newpassword',
+            null,
+            true,
+            array(User::ROLE_MANAGER)
+        );
         $request->companyId = $company->getId();
         $request->maximumChecklistTemplates = 10;
 
@@ -379,14 +451,17 @@ class SaveUserInteractorTest extends BaseUserInteractorTest
 
         $this->assertUser($user, $request);
 
-        $this->assertThat(count($this->userGateway->findAll()), $this->equalTo(1));
+        $this->assertThat(count($this->getGateway(UserGateway::NAME)->findAll()), $this->equalTo(1));
     }
 
     private function assertUser(User $user, SaveUserRequest $request)
     {
         $this->assertNotNull($user->getSalt());
         $this->assertThat($user->getEmail(), $this->equalTo($request->email));
-        $this->assertThat($user->getRoles(), $this->equalTo(array_unique(array_merge($request->roles, array(User::ROLE_USER)))));
+        $this->assertThat(
+            $user->getRoles(),
+            $this->equalTo(array_unique(array_merge($request->roles, array(User::ROLE_USER))))
+        );
         $this->assertThat($user->getCompanyId(), $this->equalTo($request->companyId));
     }
 

@@ -15,7 +15,7 @@ class RequestResetPasswordInteractor extends AbstractInteractor
 {
     public function process(Request $request, Presenter $presenter)
     {
-        $userGateway = $this->getGateway('user_gateway');
+        $userGateway = $this->getGateway(UserGateway::NAME);
 
         /** @var RequestResetPasswordRequest $request */
         /** @var UserPresenter $presenter */

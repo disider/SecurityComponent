@@ -14,7 +14,7 @@ class SaveCompanyInteractor extends AbstractInteractor
 {
     public function process(Request $request, Presenter $presenter)
     {
-        $companyGateway = $this->getGateway('company_gateway');
+        $companyGateway = $this->getGateway(CompanyGateway::NAME);
 
         /** @var SaveCompanyRequest $request */
         /** @var CompanyPresenter $presenter */

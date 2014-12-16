@@ -2,13 +2,14 @@
 
 namespace Diside\SecurityComponent\Tests\Interactor\Interactor;
 
+use Diside\SecurityComponent\Gateway\UserGateway;
 use Diside\SecurityComponent\Interactor\Presenter\ResetPasswordPresenter;
 use Diside\SecurityComponent\Interactor\Presenter\UserPresenter;
 use Diside\SecurityComponent\Interactor\Interactor\ResetPasswordInteractor;
 use Diside\SecurityComponent\Interactor\Request\ResetPasswordRequest;
 use Diside\SecurityComponent\Model\User;
 
-class ResetPasswordInteractorTest extends BaseUserInteractorTest
+class ResetPasswordInteractorTest extends BaseInteractorTest
 {
     /** @var ResetPasswordInteractor */
     private $interactor;
@@ -29,7 +30,7 @@ class ResetPasswordInteractorTest extends BaseUserInteractorTest
     public function whenResettingWithValidPassword_thenReturnUser()
     {
         $user = new User(null, 'adam@example.com', 'adamsecret', '');
-        $user = $this->userGateway->save($user);
+        $user = $this->getGateway(UserGateway::NAME)->save($user);
         $request = new ResetPasswordRequest($user->getId(), 'newsecret');
 
         $this->interactor->process($request, $this->presenter);

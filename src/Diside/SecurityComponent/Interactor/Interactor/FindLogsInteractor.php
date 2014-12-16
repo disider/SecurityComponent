@@ -3,6 +3,7 @@
 namespace Diside\SecurityComponent\Interactor\Interactor;
 
 use Diside\SecurityComponent\Gateway\LogGateway;
+use Diside\SecurityComponent\Gateway\UserGateway;
 use Diside\SecurityComponent\Interactor\AbstractInteractor;
 use Diside\SecurityComponent\Interactor\Presenter;
 use Diside\SecurityComponent\Interactor\Presenter\LogsPresenter;
@@ -13,8 +14,8 @@ class FindLogsInteractor extends AbstractInteractor
 {
     public function process(Request $request, Presenter $presenter)
     {
-        $logGateway = $this->getGateway('log_gateway');
-        $userGateway = $this->getGateway('user_gateway');
+        $logGateway = $this->getGateway(LogGateway::NAME);
+        $userGateway = $this->getGateway(UserGateway::NAME);
 
         /** @var FindLogsRequest $request */
         /** @var LogsPresenter $presenter */

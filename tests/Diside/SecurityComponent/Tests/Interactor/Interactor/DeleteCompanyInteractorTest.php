@@ -13,7 +13,7 @@ use Diside\SecurityComponent\Interactor\Interactor\DeleteCompanyInteractor;
 use Diside\SecurityComponent\Model\Company;
 use Diside\SecurityComponent\Model\User;
 
-class DeleteCompanyInteractorTest extends BaseUserInteractorTest
+class DeleteCompanyInteractorTest extends BaseInteractorTest
 {
     /** @var DeleteCompanyInteractor */
     private $interactor;
@@ -86,7 +86,7 @@ class DeleteCompanyInteractorTest extends BaseUserInteractorTest
 
         $this->assertFalse($this->presenter->hasErrors());
 
-        $this->assertThat($this->companyGateway->countAll(), $this->equalTo(0));
+        $this->assertThat($this->getGateway(CompanyGateway::NAME)->countAll(), $this->equalTo(0));
     }
 
     protected function buildPresenter()

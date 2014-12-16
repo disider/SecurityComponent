@@ -23,7 +23,7 @@ class SecurityInteractorRegisterTest extends \PHPUnit_Framework_TestCase
      */
     public function countClasses()
     {
-        $this->assertThat(count($this->interactorRegister->getAll()), $this->equalTo(13));
+        $this->assertThat(count($this->interactorRegister->getAll()), $this->equalTo(17));
     }
 
     /**
@@ -44,6 +44,11 @@ class SecurityInteractorRegisterTest extends \PHPUnit_Framework_TestCase
         $this->assertInteractor(SecurityInteractorRegister::SAVE_USER, '\Diside\SecurityComponent\Interactor\Interactor\SaveUserInteractor');
         $this->assertInteractor(SecurityInteractorRegister::DELETE_USER, '\Diside\SecurityComponent\Interactor\Interactor\DeleteUserInteractor');
         $this->assertInteractor(SecurityInteractorRegister::FIND_LOGS, '\Diside\SecurityComponent\Interactor\Interactor\FindLogsInteractor');
+
+        $this->assertInteractor(SecurityInteractorRegister::FIND_PAGES, '\Diside\SecurityComponent\Interactor\Interactor\FindPagesInteractor');
+        $this->assertInteractor(SecurityInteractorRegister::GET_PAGE, '\Diside\SecurityComponent\Interactor\Interactor\GetPageInteractor');
+        $this->assertInteractor(SecurityInteractorRegister::SAVE_PAGE, '\Diside\SecurityComponent\Interactor\Interactor\SavePageInteractor');
+        $this->assertInteractor(SecurityInteractorRegister::DELETE_PAGE, '\Diside\SecurityComponent\Interactor\Interactor\DeletePageInteractor');
     }
 
     /**

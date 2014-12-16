@@ -2,6 +2,7 @@
 
 namespace Diside\SecurityComponent\Tests\Interactor\Interactor;
 
+use Diside\SecurityComponent\Gateway\UserGateway;
 use Diside\SecurityComponent\Interactor\Interactor\GetUserInteractor;
 use Diside\SecurityComponent\Interactor\Presenter\UserPresenter;
 use Diside\SecurityComponent\Interactor\Request\GetUserByEmailRequest;
@@ -10,7 +11,7 @@ use Diside\SecurityComponent\Interactor\Request\GetUserByRegistrationTokenReques
 use Diside\SecurityComponent\Interactor\Request\GetUserByResetPasswordTokenRequest;
 use Diside\SecurityComponent\Model\User;
 
-class GetUserInteractorTest extends BaseUserInteractorTest
+class GetInteractorTest extends BaseInteractorTest
 {
     /** @var GetUserInteractor */
     private $interactor;
@@ -67,7 +68,7 @@ class GetUserInteractorTest extends BaseUserInteractorTest
     {
         $user = new User(null, 'admin@example.com', '', '');
         $user->addRole(User::ROLE_ADMIN);
-        $user = $this->userGateway->save($user);
+        $user = $this->getGateway(UserGateway::NAME)->save($user);
 
         $request = new GetUserByIdRequest($user->getId());
         $this->interactor->process($request, $this->presenter);

@@ -8,7 +8,7 @@ use Diside\SecurityComponent\Interactor\Presenter\UserPresenter;
 use Diside\SecurityComponent\Interactor\Request\DeleteUserRequest;
 use Diside\SecurityComponent\Model\User;
 
-class DeleteUserInteractorTest extends BaseUserInteractorTest
+class DeleteInteractorTest extends BaseInteractorTest
 {
     /** @var DeleteUserInteractor */
     private $interactor;

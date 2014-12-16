@@ -8,7 +8,7 @@ use Diside\SecurityComponent\Interactor\Request\GetCompanyRequest;
 use Diside\SecurityComponent\Model\Company;
 use Diside\SecurityComponent\Model\User;
 
-class GetCompanyInteractorTest extends BaseUserInteractorTest
+class GetCompanyInteractorTest extends BaseInteractorTest
 {
     /** @var GetCompanyInteractor */
     private $interactor;
@@ -28,13 +28,8 @@ class GetCompanyInteractorTest extends BaseUserInteractorTest
      */
     public function testProcess()
     {
-        $user = new User(null, 'admin@example.com', '', '');
-        $user->addRole(User::ROLE_SUPERADMIN);
-
-        $this->userGateway->save($user);
-
-        $company = new Company(null, 'Acme');
-        $company = $this->companyGateway->save($company);
+        $user = $this->givenUser();
+        $company = $this->givenCompany('Acme');
 
         $request = new GetCompanyRequest($user->getId());
         $this->interactor->process($request, $this->presenter);

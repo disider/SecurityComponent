@@ -2,13 +2,14 @@
 
 namespace Diside\SecurityComponent\Tests\Interactor\Interactor;
 
+use Diside\SecurityComponent\Gateway\UserGateway;
 use Diside\SecurityComponent\Interactor\Presenter\ConfirmUserRegistrationPresenter;
 use Diside\SecurityComponent\Interactor\Presenter\UserPresenter;
 use Diside\SecurityComponent\Interactor\Interactor\ConfirmUserRegistrationInteractor;
 use Diside\SecurityComponent\Interactor\Request\ConfirmUserRegistrationRequest;
 use Diside\SecurityComponent\Model\User;
 
-class ConfirmUserRegistrationInteractorTest extends BaseUserInteractorTest
+class ConfirmRegistrationInteractorTest extends BaseInteractorTest
 {
     /** @var ConfirmUserRegistrationInteractor */
     private $interactor;
@@ -31,7 +32,7 @@ class ConfirmUserRegistrationInteractorTest extends BaseUserInteractorTest
         $user = $this->givenUser();
         $user->setRegistrationToken('12345678');
 
-        $this->userGateway->save($user);
+        $this->getGateway(UserGateway::NAME)->save($user);
 
         $request = new ConfirmUserRegistrationRequest('12345678');
 
