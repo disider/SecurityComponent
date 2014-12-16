@@ -67,6 +67,20 @@ class RegisterUserInteractorTest extends BaseUserInteractorTest
     /**
      * @test
      */
+    public function whenSavingNewWithoutEmailAndPassword_thenReturnEmptyEmailAndEmptyPassword()
+    {
+        $request = new RegisterUserRequest(null, null, null);
+
+        $this->interactor->process($request, $this->presenter);
+
+        $this->assertNull($this->presenter->getUser());
+        $this->assertError(0, UserPresenter::EMPTY_EMAIL);
+        $this->assertError(1, UserPresenter::EMPTY_PASSWORD);
+    }
+
+    /**
+     * @test
+     */
     public function whenSavingExisting_thenReturnError()
     {
         $this->givenUser('adam@example.com');

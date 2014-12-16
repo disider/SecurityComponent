@@ -13,6 +13,8 @@ use Diside\SecurityComponent\Model\User;
 
 class RegisterUserInteractor extends AbstractInteractor
 {
+    protected $errors = array();
+
     public function process(Request $request, Presenter $presenter)
     {
         $userGateway = $this->getGateway('user_gateway');
@@ -21,6 +23,7 @@ class RegisterUserInteractor extends AbstractInteractor
         /** @var UserPresenter $presenter */
 
         if (!$this->validate($request, $presenter)) {
+            $presenter->setErrors($this->errors);
             return;
         }
 
@@ -41,21 +44,17 @@ class RegisterUserInteractor extends AbstractInteractor
         $presenter->setUser($user);
     }
 
-    private function validate(Request $request, UserPresenter $presenter)
+    protected function validate(Request $request, UserPresenter $presenter)
     {
         if ($request->email === null) {
-            $error = UserPresenter::EMPTY_EMAIL;
-            $presenter->setErrors(array($error));
-            return false;
+            $this->errors[] = UserPresenter::EMPTY_EMAIL;
         }
 
         if ($request->password === null) {
-            $error = UserPresenter::EMPTY_PASSWORD;
-            $presenter->setErrors(array($error));
-            return false;
+            $this->errors[] = UserPresenter::EMPTY_PASSWORD;
         }
 
-        return true;
+        return empty($this->errors);
     }
 
     protected function buildUser(Request $request)
