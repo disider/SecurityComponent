@@ -23,7 +23,7 @@ class SaveCompanyInteractor extends AbstractInteractor
             return;
         }
 
-        $company = new Company($request->id, $request->name);
+        $company = $this->buildCompany($request);
 
         $company = $companyGateway->save($company);
 
@@ -39,5 +39,14 @@ class SaveCompanyInteractor extends AbstractInteractor
         }
 
         return true;
+    }
+
+    /**
+     * @param SaveCompanyRequest $request
+     * @return Company
+     */
+    protected function buildCompany(Request $request)
+    {
+        return new Company($request->id, $request->name);
     }
 }
