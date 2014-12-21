@@ -24,14 +24,14 @@ class Page extends PageTranslation
         $this->translations[] = $translation;
     }
 
-    public function hasTranslation($language)
+    public function hasTranslation($locale)
     {
-        if($language == $this->getLanguage())
+        if($locale == $this->getLocale())
             return true;
 
         /** @var PageTranslation $translation */
         foreach ($this->translations as $translation) {
-            if ($translation->getLanguage() == $language) {
+            if ($translation->getLocale() == $locale) {
                 return true;
             }
         }
@@ -39,17 +39,17 @@ class Page extends PageTranslation
         return false;
     }
 
-    public function getTranslation($language)
+    public function getTranslation($locale)
     {
-        if($language == $this->getLanguage())
+        if($locale == $this->getLocale())
             return $this;
 
         /** @var PageTranslation $translation */
         foreach ($this->translations as $translation)
-            if ($translation->getLanguage() == $language)
+            if ($translation->getLocale() == $locale)
                 return $translation;
 
-        throw new UndefinedTranslationException('Page has no translation for ' . $language);
+        throw new UndefinedTranslationException('Page has no translation for ' . $locale);
     }
 
 }

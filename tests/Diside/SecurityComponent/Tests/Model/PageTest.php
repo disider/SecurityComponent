@@ -14,7 +14,7 @@ class PageTest extends \PHPUnit_Framework_TestCase
     {
         $page = $this->givenPage();
 
-        $this->assertThat($page->getLanguage(), $this->equalTo('en'));
+        $this->assertThat($page->getLocale(), $this->equalTo('en'));
         $this->assertThat($page->getUrl(), $this->equalTo('url'));
         $this->assertThat($page->getTitle(), $this->equalTo('title'));
         $this->assertThat($page->getContent(), $this->equalTo('content'));
@@ -40,7 +40,7 @@ class PageTest extends \PHPUnit_Framework_TestCase
     {
         $page = $this->givenPage();
 
-        $this->assertThat($page->getTranslation($page->getLanguage()), $this->equalTo($page));
+        $this->assertThat($page->getTranslation($page->getLocale()), $this->equalTo($page));
     }
 
     /**
@@ -76,9 +76,7 @@ class PageTest extends \PHPUnit_Framework_TestCase
      */
     protected function givenPage()
     {
-        $page = new Page(null, 'en', 'url', 'title', 'content');
-
-        return $page;
+        return new Page(null, 'en', 'url', 'title', 'content');
     }
 
 }
