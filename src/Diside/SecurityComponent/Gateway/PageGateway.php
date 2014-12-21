@@ -21,11 +21,11 @@ interface PageGateway extends Gateway
     public function delete($id);
 
     /**
-     * @param string $language
+     * @param string $locale
      * @param string $url
      * @return Page
      */
-    public function findOneByLanguageAndUrl($language, $url);
+    public function findOneByLanguageAndUrl($locale, $url);
 
     /**
      * @param int $id
